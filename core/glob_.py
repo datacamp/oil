@@ -77,6 +77,16 @@ def GlobToExtendedRegex(g):
   # char class syntax?
 
 
+# Python regex:
+# - supports Greedy vs. Non-greedy
+# - doesn't rely on global variables for unicode?  I think libc uses LOCALE?
+
+# ERE:
+# - linear time
+# - save code space
+# - support same character classes as glob
+
+
 def GlobToPythonRegex(g, longest=True):
   """Convert a glob to a libc extended regexp.
 

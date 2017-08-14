@@ -77,11 +77,19 @@ class GlobEscapeTest(unittest.TestCase):
     # x=~/git/oil
     # ${x//git*/X/}
 
-    # NOTE: This should be regcomp
-    r = re.compile('(^.*)git.*(.*)')
-
-    result = r.sub(r'\1' + 'X' + r'\2', '~/git/oil')
+    # git*
+    r1 = re.compile('git.*')
+    result = r1.sub('X', '~/git/oil')
     self.assertEqual('~/X', result)
+
+    r2 = re.compile('[a-z]')
+    result = r2.sub('X', 'a-b-c')
+    self.assertEqual('X-X-X', result)
+
+    # Substitute the first one only
+    r2 = re.compile('[a-z]')
+    result = r2.sub('X', 'a-b-c', count=1)
+    self.assertEqual('X-b-c', result)
 
   def testPatSubRegexesLibc(self):
     r = libc.regex_parse('^(.*)git.*(.*)')
