@@ -1,5 +1,4 @@
 import sys
-sys.argv[0] = 'bin/osh'
 
 from osh import parse_lib
 from core import reader
@@ -33,7 +32,13 @@ def ast_dump(node):
         else: data[field_name] = ast_dump(attr)
     return {'type': node.__class__.__name__, 'data': data}
 
-#if __name__ == '__main__':
+def main(args=None):
+    if args is None:
+        cmd = sys.argv[1]
+    print(ast_dump(cmd_to_ast(cmd)))
+
+if __name__ == '__main__':
+    main()
 #    from flask import Flask, jsonify, request
 #    app = Flask(__name__)
 #

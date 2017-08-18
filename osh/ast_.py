@@ -136,8 +136,9 @@ def _ParseAndMakeTypes(f, root):
     raise AssertionError('ASDL file is invalid')
   py_meta.MakeTypes(module, root, app_types)
 
-
-f = util.GetResourceLoader().open('osh/osh.asdl')
+import pkg_resources
+fname = pkg_resources.resource_filename('osh', 'osh.asdl')
+f = open(fname)
 root = sys.modules[__name__]
 _ParseAndMakeTypes(f, root)
 f.close()
