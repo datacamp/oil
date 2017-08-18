@@ -11,6 +11,6 @@ class PostDevelopCommand(develop):
 setup(
 	name = 'osh',
 	version = '0.0.0',
-	packages = ['osh'],
+	packages = ['osh', 'core', 'oil', 'opy', 'asdl'],
         cmdclass = { 'develop': PostDevelopCommand },
         include_package_data = True)
