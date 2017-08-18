@@ -1,4 +1,5 @@
 import sys
+import os
 
 from osh import parse_lib
 from core import reader
