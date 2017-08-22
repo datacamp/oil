@@ -6,6 +6,7 @@ from core import reader
 from core import alloc
 import core.id_kind
 import asdl.py_meta
+import json
 
 pool = alloc.Pool()
 arena = pool.NewArena()
@@ -36,7 +37,7 @@ def ast_dump(node):
 def main(args=None):
     if args is None:
         cmd = sys.argv[1]
-    print(ast_dump(cmd_to_ast(cmd)))
+    print(json.dumps(ast_dump(cmd_to_ast(cmd))))
 
 if __name__ == '__main__':
     main()
