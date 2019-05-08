@@ -6,7 +6,7 @@ from subprocess import check_call, CalledProcessError
 
 def common_install():
     try:
-        check_call("./build/dev.sh all".split())
+        check_call("./build/dev.sh minimal".split())
     except CalledProcessError as c:
         print c
 
