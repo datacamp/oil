@@ -91,7 +91,7 @@ gen-asdl-py() {
 
   # abbrev module is optional
   core/asdl_gen.py mypy "$@" > $tmp
-  
+
   # BUG: MUST BE DONE ATOMICALLY ATOMIC; otherwise the Python interpreter can
   # import an empty file!
   mv -v $tmp $out
@@ -192,6 +192,25 @@ minimal() {
 all() {
   minimal
   fastlex
+}
+
+# The ast branch needs less than the minimal install
+ast() {
+  mkdir -p _tmp _devbuild/gen
+
+  rm -v -f _devbuild/gen/*
+
+  # So modules are importable.
+  touch _devbuild/__init__.py  _devbuild/gen/__init__.py
+
+  gen-help
+
+  gen-types-asdl    # no dependency on Id
+
+  build/codegen.sh id-mypy-gen  # dependency on bool_arg_type_e
+
+  gen-syntax-asdl   # depends on Id
+  gen-runtime-asdl  # ditto
 }
 
 "$@"
