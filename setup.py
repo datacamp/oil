@@ -1,14 +1,11 @@
 from setuptools import setup
 from setuptools.command.develop import develop
 from setuptools.command.install import install
-from subprocess import check_call, CalledProcessError
+from subprocess import check_output, CalledProcessError
 
 
 def common_install():
-    try:
-        check_call("./build/dev.sh ast".split())
-    except CalledProcessError as c:
-        print c
+    print(check_output("echo $PWD && ls && ./build/dev.sh ast".split()))
 
 
 class PostDevelopCommand(develop):
