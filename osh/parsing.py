@@ -15,8 +15,7 @@ from osh.utils_ast import DumpConfig, dump as dump_util
 
 
 def parse(code):
-    pool = alloc.Pool()
-    arena = pool.NewArena()
+    arena = alloc.Arena()
     arena.PushSource("<stdin>")
     line_reader = reader.StringLineReader(code, arena)
 
