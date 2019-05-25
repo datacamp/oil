@@ -30,7 +30,7 @@ class PostInstallCommand(install):
 setup(
     name="osh",
     version="0.0.0",
-    packages=["osh", "core", "opy", "asdl"],
+    packages=["osh", "core", "asdl", "frontend", "pylib", "_devbuild"],
     install_requires=["typing"],
     cmdclass={"develop": PostDevelopCommand, "install": PostInstallCommand},
     include_package_data=True,
