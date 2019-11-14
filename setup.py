@@ -1,20 +1,37 @@
-import os
-
 from setuptools import setup
-from subprocess import check_call
+from setuptools.command.develop import develop
+from setuptools.command.install import install
+from subprocess import check_call, CalledProcessError
 
 
 def common_install():
-    here = os.path.dirname(__file__) or '.'
-    check_call("./build/dev.sh ast".split(), cwd=here)
+    try:
+        check_call("./build/dev.sh ast".split())
+    except CalledProcessError as c:
+        print c
 
 
-common_install()
+class PostDevelopCommand(develop):
+    """Post-installation for installation mode."""
+
+    def run(self):
+        common_install()
+        develop.run(self)
+
+
+class PostInstallCommand(install):
+    """Post-installation for installation mode."""
+
+    def run(self):
+        common_install()
+        install.run(self)
 
 
 setup(
     name="osh",
-    version="0.1.1",
-    packages=["osh", "core", "asdl", "frontend", "pylib", "_devbuild", "_devbuild.gen"],
+    version="0.1.2",
+    packages=["osh", "core", "asdl", "frontend", "pylib"],
     install_requires=["typing"],
+    cmdclass={"develop": PostDevelopCommand, "install": PostInstallCommand},
+    include_package_data=True,
 )
